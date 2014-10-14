@@ -1,0 +1,6 @@
+P:\GitHub\GeometriskaFigurer.cs\bin\Debug\GeometriskaFigurer.cs.exe.config
+P:\GitHub\GeometriskaFigurer.cs\bin\Debug\GeometriskaFigurer.cs.exe
+P:\GitHub\GeometriskaFigurer.cs\bin\Debug\GeometriskaFigurer.cs.pdb
+P:\GitHub\GeometriskaFigurer.cs\obj\Debug\GeometriskaFigurer.cs.csprojResolveAssemblyReference.cache
+P:\GitHub\GeometriskaFigurer.cs\obj\Debug\GeometriskaFigurer.cs.exe
+P:\GitHub\GeometriskaFigurer.cs\obj\Debug\GeometriskaFigurer.cs.pdb
