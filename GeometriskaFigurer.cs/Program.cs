@@ -10,18 +10,58 @@ namespace GeometriskaFigurer.cs
     {
         static void Main(string[] args)
         {
-        }
+            int index;
 
-        private static Shape CreateShape()
+            ViewMenu();
+
+            do
+            {
+
+                if (int.TryParse(Console.ReadLine(), out index) && index >= 0 && index <= 2)
+                {
+                    switch (index)
+                    {
+                        case 0:
+                            return;
+
+                        case 1:
+                            CreateShape(ShapeType.Ellipse);
+                            break;
+
+                        case 2:
+                            CreateShape(ShapeType.Rectangle);
+                            break;
+                    }
+
+                    // Visar felmeddelande om inmatat värde är utanför intervallet (1-2).
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("FEL! Ange ett nummer mellan 0 och 2.");
+                    Console.ResetColor();
+                }
+                // Ger användaren ny chans att ange ett korrekt menyalternativ.
+                Console.BackgroundColor = ConsoleColor.DarkBlue;
+                Console.Write("\nTryck tangent för att fortsätta");
+                Console.ResetColor();
+                Console.CursorVisible = false;
+                Console.ReadKey(true);
+                Console.Clear();
+                Console.CursorVisible = true;
+
+            } while (true);
+        }
+            
+
+        private static Shape CreateShape(ShapeType shapeType)
         {
             throw new System.NotImplementedException();
         }
 
-        private static double ReadDoubleGreaterThanZero()
+        private static double ReadDoubleGreaterThanZero(string prompt)
         {
             throw new System.NotImplementedException();
         }
 
+        // Presentation av meny.
         private static void ViewMenu()
         {
             Console.BackgroundColor = ConsoleColor.Green;
@@ -35,12 +75,20 @@ namespace GeometriskaFigurer.cs
             Console.WriteLine("1. Ellips.");
             Console.WriteLine("2. Rektangel.");
             Console.WriteLine("\n===================================\n");
-            Console.WriteLine("Ange menyval [0-2]:");
         }
 
-        private static void ViewShapeDetail()
+        // Presentation av en figurs detaljer (Längd, Höjd, Omkrets och Area).
+        private static void ViewShapeDetail(Shape shape)
         {
-            throw new System.NotImplementedException();
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.WriteLine("===================================");
+            Console.WriteLine("=            Detaljer             =");
+            Console.WriteLine("===================================");
+            Console.ResetColor();
+
+            Console.WriteLine(shape.ToString());
+
+            Console.WriteLine("\n===================================\n");
         }
     }
 }

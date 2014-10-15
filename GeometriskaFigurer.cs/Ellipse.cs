@@ -7,20 +7,22 @@ namespace GeometriskaFigurer.cs
 {
     public class Ellipse : Shape
     {
-    
+        
+        // Beräknar och returnerar arean för 'Ellipse'.
         public abstract double Area
         {
             get
             {
-                throw new System.NotImplementedException();
+                return Math.PI * (Length / 2) * (Width / 2);
             }
         }
 
+        // Beräknar och returnerar omkretsen för 'Ellipse'.
         public abstract double Perimeter
         {
             get
             {
-                throw new System.NotImplementedException();
+                return Math.PI * Math.Sqrt(2 * (Length / 2) * (Length / 2) + 2 * (Width / 2) * (Width / 2));
             }
         }
       

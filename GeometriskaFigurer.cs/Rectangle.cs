@@ -7,20 +7,22 @@ namespace GeometriskaFigurer.cs
 {
     public class Rectangle : Shape
     {
-    
+        
+        // Beräknar och returnerar arean för 'Rectangle'.
         public abstract double Area
         {
             get
             {
-                throw new System.NotImplementedException();
+                return Length * Width;
             }
         }
 
+        // Beräknar och returnerar omkretsen för 'Rectangle'.
         public abstract double Perimeter
         {
             get
             {
-                throw new System.NotImplementedException();
+                return 2 * Length + 2 * Width;
             }
         }
 
