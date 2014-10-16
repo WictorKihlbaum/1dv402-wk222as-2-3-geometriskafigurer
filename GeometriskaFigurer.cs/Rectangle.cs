@@ -9,7 +9,7 @@ namespace GeometriskaFigurer.cs
     {
         
         // Beräknar och returnerar arean för 'Rectangle'.
-        public abstract double Area
+        public override double Area
         {
             get
             {
@@ -18,7 +18,7 @@ namespace GeometriskaFigurer.cs
         }
 
         // Beräknar och returnerar omkretsen för 'Rectangle'.
-        public abstract double Perimeter
+        public override double Perimeter
         {
             get
             {

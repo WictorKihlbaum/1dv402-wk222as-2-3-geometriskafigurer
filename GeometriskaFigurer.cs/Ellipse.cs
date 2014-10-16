@@ -9,7 +9,7 @@ namespace GeometriskaFigurer.cs
     {
         
         // Beräknar och returnerar arean för 'Ellipse'.
-        public abstract double Area
+        public override double Area
         {
             get
             {
@@ -18,7 +18,7 @@ namespace GeometriskaFigurer.cs
         }
 
         // Beräknar och returnerar omkretsen för 'Ellipse'.
-        public abstract double Perimeter
+        public override double Perimeter
         {
             get
             {

@@ -10,80 +10,130 @@ namespace GeometriskaFigurer.cs
     {
         static void Main(string[] args)
         {
-            int index;
-
-            ViewMenu();
 
             do
             {
+                Console.Clear();
+                ViewMenu();
 
-                if (int.TryParse(Console.ReadLine(), out index) && index >= 0 && index <= 2)
+                try
                 {
+                int index = int.Parse(Console.ReadLine());
                     switch (index)
                     {
                         case 0:
                             return;
 
                         case 1:
-                            CreateShape(ShapeType.Ellipse);
+                            ViewShapeDetail(CreateShape(ShapeType.Ellipse));
                             break;
 
                         case 2:
-                            CreateShape(ShapeType.Rectangle);
+                            ViewShapeDetail(CreateShape(ShapeType.Rectangle));
                             break;
-                    }
 
-                    // Visar felmeddelande om inmatat värde är utanför intervallet (1-2).
+                        default:
+                            throw new ArgumentException();
+                    }
+                }
+
+                catch
+                {
+                    // Visar felmeddelande om inmatat värde är utanför intervallet (0-2).
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("FEL! Ange ett nummer mellan 0 och 2.");
+                    Console.WriteLine("\nFEL! Ange ett nummer mellan 0 och 2.\n");
+                    Console.ResetColor();
+
+                    // Ger användaren ny chans att ange ett korrekt menyalternativ.
+                    Console.BackgroundColor = ConsoleColor.DarkBlue;
+                    Console.Write("\nTryck tangent för att fortsätta");
                     Console.ResetColor();
                 }
-                // Ger användaren ny chans att ange ett korrekt menyalternativ.
-                Console.BackgroundColor = ConsoleColor.DarkBlue;
-                Console.Write("\nTryck tangent för att fortsätta");
-                Console.ResetColor();
-                Console.CursorVisible = false;
-                Console.ReadKey(true);
-                Console.Clear();
-                Console.CursorVisible = true;
 
-            } while (true);
+            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);  
         }
             
-
         private static Shape CreateShape(ShapeType shapeType)
         {
-            throw new System.NotImplementedException();
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("\n===================================");
+
+            switch (shapeType) 
+            {
+                case ShapeType.Ellipse:Console.WriteLine("=             Ellipse             =");
+                    break;
+
+                case ShapeType.Rectangle:Console.WriteLine("=            Rectangle            =");
+                    break;
+            }
+
+            Console.WriteLine("===================================\n");
+            Console.ResetColor();
+
+            double length = ReadDoubleGreaterThanZero("Ange längd: ");
+            double width = ReadDoubleGreaterThanZero("Ange bredd: ");
+
+            if (shapeType == ShapeType.Ellipse)
+            {
+                return new Rectangle(length, width);
+            }
+            else
+            {
+                return new Ellipse(length, width);
+            }
         }
 
         private static double ReadDoubleGreaterThanZero(string prompt)
         {
-            throw new System.NotImplementedException();
+
+            while (true)
+            {
+                Console.Write(prompt);
+
+                try
+                {
+                    double variable = double.Parse(Console.ReadLine());
+
+                    if (variable <= 0)
+                    {
+                        throw new Exception();
+                    }
+                }
+
+                catch
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("\nFEL! Ange ett flyttal större än 0.");
+                    Console.ResetColor();
+                }
+            }
         }
 
         // Presentation av meny.
         private static void ViewMenu()
         {
-            Console.BackgroundColor = ConsoleColor.Green;
-            Console.WriteLine("===================================");
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("\n===================================");
             Console.WriteLine("=                                 =");
             Console.WriteLine("=       Geometriska figurer       =");
             Console.WriteLine("=                                 =");
             Console.WriteLine("===================================\n");
             Console.ResetColor();
-            Console.WriteLine("0. Avsluta.");
+            Console.WriteLine("\n0. Avsluta.\n");
             Console.WriteLine("1. Ellips.");
-            Console.WriteLine("2. Rektangel.");
+            Console.WriteLine("\n2. Rektangel.\n");
             Console.WriteLine("\n===================================\n");
+
+            Console.Write("Ange menyval [0-2]: ");
         }
 
         // Presentation av en figurs detaljer (Längd, Höjd, Omkrets och Area).
         private static void ViewShapeDetail(Shape shape)
         {
             Console.BackgroundColor = ConsoleColor.Green;
-            Console.WriteLine("===================================");
+            Console.WriteLine("\n===================================");
             Console.WriteLine("=            Detaljer             =");
-            Console.WriteLine("===================================");
+            Console.WriteLine("===================================\n");
             Console.ResetColor();
 
             Console.WriteLine(shape.ToString());
