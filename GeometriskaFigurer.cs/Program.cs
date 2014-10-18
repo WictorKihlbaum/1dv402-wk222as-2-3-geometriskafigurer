@@ -10,45 +10,41 @@ namespace GeometriskaFigurer.cs
     {
         static void Main(string[] args)
         {
+            int index;
 
             do
             {
                 Console.Clear();
                 ViewMenu();
 
-                try
-                {
-                int index = int.Parse(Console.ReadLine());
-                    switch (index)
+                    if (int.TryParse(Console.ReadLine(), out index) && index >= 0 && index <= 2)
                     {
-                        case 0:
-                            return;
+                        switch (index)
+                        {
+                            case 0:
+                                return;
 
-                        case 1:
-                            ViewShapeDetail(CreateShape(ShapeType.Ellipse));
-                            break;
+                            case 1:
+                                ViewShapeDetail(CreateShape(ShapeType.Ellipse));
+                                break;
 
-                        case 2:
-                            ViewShapeDetail(CreateShape(ShapeType.Rectangle));
-                            break;
-
-                        default:
-                            throw new ArgumentException();
+                            case 2:
+                                ViewShapeDetail(CreateShape(ShapeType.Rectangle));
+                                break;
+                        }
                     }
-                }
-
-                catch
-                {
-                    // Visar felmeddelande om inmatat värde är utanför intervallet (0-2).
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("\nFEL! Ange ett nummer mellan 0 och 2.\n");
-                    Console.ResetColor();
+                    else
+                    {
+                        // Visar felmeddelande om inmatat värde är utanför intervallet (0-2).
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("\nFEL! Ange ett nummer mellan 0 och 2.\n");
+                        Console.ResetColor();
+                    }
 
                     // Ger användaren ny chans att ange ett korrekt menyalternativ.
                     Console.BackgroundColor = ConsoleColor.DarkBlue;
                     Console.Write("\nTryck tangent för att fortsätta");
                     Console.ResetColor();
-                }
 
             } while (Console.ReadKey(true).Key != ConsoleKey.Escape);  
         }
@@ -75,11 +71,11 @@ namespace GeometriskaFigurer.cs
 
             if (shapeType == ShapeType.Ellipse)
             {
-                return new Rectangle(length, width);
+                return new Ellipse(length, width);
             }
             else
             {
-                return new Ellipse(length, width);
+                return new Rectangle(length, width);
             }
         }
 
@@ -94,9 +90,10 @@ namespace GeometriskaFigurer.cs
                 {
                     double variable = double.Parse(Console.ReadLine());
 
-                    if (variable <= 0)
+                    if (variable > 0)
                     {
-                        throw new Exception();
+                        return variable;
+                        
                     }
                 }
 
@@ -119,18 +116,18 @@ namespace GeometriskaFigurer.cs
             Console.WriteLine("=                                 =");
             Console.WriteLine("===================================\n");
             Console.ResetColor();
-            Console.WriteLine("\n0. Avsluta.\n");
+            Console.WriteLine("0. Avsluta.\n");
             Console.WriteLine("1. Ellips.");
             Console.WriteLine("\n2. Rektangel.\n");
-            Console.WriteLine("\n===================================\n");
+            Console.WriteLine("===================================");
 
-            Console.Write("Ange menyval [0-2]: ");
+            Console.Write("\nAnge menyval [0-2]: ");
         }
 
         // Presentation av en figurs detaljer (Längd, Höjd, Omkrets och Area).
         private static void ViewShapeDetail(Shape shape)
         {
-            Console.BackgroundColor = ConsoleColor.Green;
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("\n===================================");
             Console.WriteLine("=            Detaljer             =");
             Console.WriteLine("===================================\n");
@@ -138,7 +135,7 @@ namespace GeometriskaFigurer.cs
 
             Console.WriteLine(shape.ToString());
 
-            Console.WriteLine("\n===================================\n");
+            Console.WriteLine("===================================");
         }
     }
 }
