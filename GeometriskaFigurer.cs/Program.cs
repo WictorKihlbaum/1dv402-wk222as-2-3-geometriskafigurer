@@ -10,60 +10,52 @@ namespace GeometriskaFigurer.cs
     {
         static void Main(string[] args)
         {
-
             do
             {
                 Console.Clear();
                 ViewMenu();
 
-                try
+                switch (Console.ReadLine())
                 {
-                int index = int.Parse(Console.ReadLine());
-                    switch (index)
-                    {
-                        case 0:
-                            return;
+                    case "0":
+                        return;
 
-                        case 1:
-                            ViewShapeDetail(CreateShape(ShapeType.Ellipse));
-                            break;
+                    case "1":
+                        ViewShapeDetail(CreateShape(ShapeType.Ellipse));
+                        break;
 
-                        case 2:
-                            ViewShapeDetail(CreateShape(ShapeType.Rectangle));
-                            break;
+                    case "2":
+                        ViewShapeDetail(CreateShape(ShapeType.Rectangle));
+                        break;
 
-                        default:
-                            throw new ArgumentException();
-                    }
+                    default:
+                        // Visar felmeddelande om inmatat värde är utanför intervallet (0-2).
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("\nFEL! Ange ett nummer mellan 0 och 2.\n");
+                        Console.ResetColor();
+                        break;
                 }
 
-                catch
-                {
-                    // Visar felmeddelande om inmatat värde är utanför intervallet (0-2).
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("\nFEL! Ange ett nummer mellan 0 och 2.\n");
-                    Console.ResetColor();
+                // Ger användaren ny chans att ange ett menyalternativ.
+                Console.BackgroundColor = ConsoleColor.DarkBlue;
+                Console.Write("\nTryck tangent för att fortsätta");
+                Console.ResetColor();
 
-                    // Ger användaren ny chans att ange ett korrekt menyalternativ.
-                    Console.BackgroundColor = ConsoleColor.DarkBlue;
-                    Console.Write("\nTryck tangent för att fortsätta");
-                    Console.ResetColor();
-                }
-
-            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);  
+            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
         }
-            
+
+        // Utskrift av 'Ellipse'/'Rectangle' beroende på användarens val.
         private static Shape CreateShape(ShapeType shapeType)
         {
             Console.BackgroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("\n===================================");
 
-            switch (shapeType) 
+            switch (shapeType)
             {
-                case ShapeType.Ellipse:Console.WriteLine("=             Ellipse             =");
+                case ShapeType.Ellipse: Console.WriteLine("=             Ellipse             =");
                     break;
 
-                case ShapeType.Rectangle:Console.WriteLine("=            Rectangle            =");
+                case ShapeType.Rectangle: Console.WriteLine("=            Rectangle            =");
                     break;
             }
 
@@ -73,13 +65,14 @@ namespace GeometriskaFigurer.cs
             double length = ReadDoubleGreaterThanZero("Ange längd: ");
             double width = ReadDoubleGreaterThanZero("Ange bredd: ");
 
+            // Returnerar värden för figur beroende på användarens val.
             if (shapeType == ShapeType.Ellipse)
             {
-                return new Rectangle(length, width);
+                return new Ellipse(length, width);
             }
             else
             {
-                return new Ellipse(length, width);
+                return new Rectangle(length, width);
             }
         }
 
@@ -94,16 +87,17 @@ namespace GeometriskaFigurer.cs
                 {
                     double variable = double.Parse(Console.ReadLine());
 
-                    if (variable <= 0)
+                    if (variable > 0)
                     {
-                        throw new Exception();
+                        return variable;
                     }
-                }
 
+                    throw new ApplicationException();
+                }
                 catch
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("\nFEL! Ange ett flyttal större än 0.");
+                    Console.WriteLine("\nFEL! Ange ett flyttal större än 0.\n");
                     Console.ResetColor();
                 }
             }
@@ -119,18 +113,18 @@ namespace GeometriskaFigurer.cs
             Console.WriteLine("=                                 =");
             Console.WriteLine("===================================\n");
             Console.ResetColor();
-            Console.WriteLine("\n0. Avsluta.\n");
+            Console.WriteLine("0. Avsluta.\n");
             Console.WriteLine("1. Ellips.");
             Console.WriteLine("\n2. Rektangel.\n");
-            Console.WriteLine("\n===================================\n");
+            Console.WriteLine("===================================");
 
-            Console.Write("Ange menyval [0-2]: ");
+            Console.Write("\nAnge menyval [0-2]: ");
         }
 
         // Presentation av en figurs detaljer (Längd, Höjd, Omkrets och Area).
         private static void ViewShapeDetail(Shape shape)
         {
-            Console.BackgroundColor = ConsoleColor.Green;
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("\n===================================");
             Console.WriteLine("=            Detaljer             =");
             Console.WriteLine("===================================\n");
@@ -138,7 +132,7 @@ namespace GeometriskaFigurer.cs
 
             Console.WriteLine(shape.ToString());
 
-            Console.WriteLine("\n===================================\n");
+            Console.WriteLine("===================================");
         }
     }
 }

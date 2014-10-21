@@ -27,6 +27,7 @@ namespace GeometriskaFigurer.cs
         }
 
         // Konstruktorn anropar baskonstruktorn och ser till att längd och bredd sätts till det nya objektet.
-        public Rectangle(double length, double width) : base(length, width) {}
+        public Rectangle(double length, double width) 
+            :base(length, width) {}
     }
 }

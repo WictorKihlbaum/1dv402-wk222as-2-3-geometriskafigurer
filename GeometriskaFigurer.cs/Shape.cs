@@ -5,13 +5,12 @@ using System.Text;
 
 namespace GeometriskaFigurer.cs
 {
-    public enum ShapeType { Ellipse, Rectangle };
+    public enum ShapeType { indefenit, Ellipse, Rectangle };
 
     public abstract class Shape
     {
-        // Initierar och deklarerar variabler.
-        private double _length = 0;
-        private double _width = 0;
+        private double _length;
+        private double _width;
 
         public abstract double Area
         {
@@ -24,7 +23,7 @@ namespace GeometriskaFigurer.cs
             get { return _length; }    
             set
             {
-                if (_length <= 0)
+                if (_length < 0)
                 {
                     throw new ArgumentException();
                 }
@@ -44,7 +43,7 @@ namespace GeometriskaFigurer.cs
             get { return _width; }
             set
             {
-                if (_width <=0 )
+                if (_width < 0 )
                 {
                     throw new ArgumentException();
                 }
@@ -55,15 +54,15 @@ namespace GeometriskaFigurer.cs
 
         // Överskuggar 'ToString' och returnerar värdena för Längd, Bredd, Omkrets och Area.
         public override string ToString()
-        {
-            return String.Join("Längd{-10:10}{0}\n Höjd{-10:10}{1}\n Omkrets{-10:10}{2}\n Area{-10:10}{3}\n", Length, Width, Perimeter, Area);
+        {   
+            return string.Format("{0,-10}:{1,10:F2}\n{2,-10}:{3,10:F2}\n{4,-10}:{5,10:F2}\n{6,-10}:{7,10:F2}\n", "Längd", Length, "Höjd", Width, "Omkrets", Perimeter, "Area", Area);
         }
 
         // Konstruktorn ser till att fälten tilldelas de värden konstruktorns parametrar har.
         protected Shape(double length, double width)
         {
-            Length = _length;
-            Width = _width;
+            Length = length;
+            Width = width;
         }
 
     }
